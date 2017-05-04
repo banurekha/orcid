@@ -1,21 +1,26 @@
-begin
-  require 'bundler/setup'
-rescue LoadError
-  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
-end
+#begin
+#  require 'bundler/setup'
+#rescue LoadError
+#  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
+#end
+
+
+#!/usr/bin/env rake
+require 'bundler/gem_tasks'
 
 Bundler::GemHelper.install_tasks
 
+Dir.glob('tasks/*.rake').each { |r| import r }
 
+require 'rspec/core/rake_task'
+require 'engine_cart/rake_task'
+require 'rspec/core/rake_task'
 begin
   APP_RAKEFILE = File.expand_path('../spec/internal/Rakefile', __FILE__)
   load 'rails/tasks/engine.rake'
 rescue LoadError
   puts "Unable to load all app tasks for #{APP_RAKEFILE}"
 end
-
-require 'engine_cart/rake_task'
-require 'rspec/core/rake_task'
 
 namespace :spec do
   RSpec::Core::RakeTask.new(:all) do
