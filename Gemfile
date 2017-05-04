@@ -16,4 +16,5 @@ gem 'coveralls', require: false
 gem 'execjs'
 gem 'therubyracer', platforms: :ruby
 gem 'byebug', require: false
+gem 'rake', '~> 11.0'
 
